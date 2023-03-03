@@ -1,0 +1,14 @@
+{
+  "name": "js-edgegpt",
+  "version": "1.0.0",
+  "description": "javascript实现的edgegpt接口，受到KeJunMao/edgegpt和acheong08/EdgeGPT的启发",
+  "main": "js-edgegpt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kzer",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.12.1"
+  }
+}
