@@ -1,5 +1,6 @@
 {
   "name": "js-edgegpt",
+  "type": "module",
   "version": "1.0.0",
   "description": "javascript实现的edgegpt接口，受到KeJunMao/edgegpt和acheong08/EdgeGPT的启发",
   "main": "js-edgegpt.js",

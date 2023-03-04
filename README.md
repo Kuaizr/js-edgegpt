@@ -17,3 +17,7 @@ javascript实现的edgegpt接口，受到KeJunMao/edgegpt和acheong08/EdgeGPT的
 ## 使用
 
 把代码中的"Cookie": "_U=xxx"中的xxx换成自己的就可以跑了
+
+h3precise -- 准确模式
+h3imaginative -- 创造模式
+harmonyv3 -- 均衡模式
