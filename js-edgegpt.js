@@ -1,7 +1,6 @@
 import https from "https";
 import EventEmitter from "events";
 import { WebSocket } from "ws";
-import { resolve } from "path";
 
 const headers = {
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.41",
@@ -139,11 +138,13 @@ class ChatHub extends EventEmitter{
     this.ws.send(appendIdentifier(msg));
   }
   close() {
-    this.ws.close();
+    if(this.ws){
+      this.ws.close();
+    }
   }
 }
 
-class ChatBot {
+export class ChatBot {
 
   constructor(mode = "h3precise"){
     this.mode = mode
@@ -163,7 +164,7 @@ class ChatBot {
       if(this.chatHub){
         this.chatHub.on("message",handler)
         this.chatHub.once("final",(res)=>{
-
+          resolve(res["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"])
         })
       }
       await this.chatHub.ask(prompt);
@@ -193,21 +194,3 @@ class ChatBot {
   }
 }
 
-let chatbot = new ChatBot();
-await chatbot.create();
-
-await chatbot.ask("你好",(msg)=>{
-  // console.log(msg)
-});
-
-console.log("done");
-
-await chatbot.ask("你现在是什么模式",(msg)=>{
-  console.log(msg)
-});
-
-// console.log(await chatbot.askASync("你好"))
-
-// console.log("done");
-
-// console.log(await chatbot.askASync("你现在是什么模式"))
