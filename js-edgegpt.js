@@ -1,6 +1,7 @@
 import https from "https";
 import EventEmitter from "events";
 import { WebSocket } from "ws";
+import { cookie_U } from "./cookie.js";
 
 const headers = {
   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.41",
@@ -9,7 +10,7 @@ const headers = {
   "sec-ch-ua": '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
   "sec-ch-ua-platform": "Windows",
   "x-forwarded-for": "4.2.2.2",
-  "Cookie": "_U=xxx"
+  "Cookie": `_U=${cookie_U}`
 };
 
 const DELIMITER = "\x1e"
@@ -155,7 +156,8 @@ export class ChatBot {
       let conversation = await createConversation();
       this.chatHub = new ChatHub(conversation,this.mode);
     } catch (error) {
-      console.log(error);
+      console.log("网络环境有问题，或者cookie有问题");
+      throw Error
     }
   }
 
@@ -164,6 +166,7 @@ export class ChatBot {
       if(this.chatHub){
         this.chatHub.on("message",handler)
         this.chatHub.once("final",(res)=>{
+          this.chatHub.off("message",handler)
           resolve(res["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"])
         })
       }
