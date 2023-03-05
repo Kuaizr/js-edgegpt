@@ -20,11 +20,31 @@ javascript实现的edgegpt接口，
 
 ## 使用
 
+```javascript
+//cookie.js
+export const cookie_U = ""
+```
 把cookie.js中的cookie_U换成自己的就可以跑了
 
 ```javascript
 import { ChatBot } from "./js-edgegpt.js";
 let chatbot = new ChatBot(mode);
+
+let res = await chatbot.askAsync("你好");
+console.log(res)
+```
+或者
+```javascript
+import { ChatBot } from "./js-edgegpt.js";
+let chatbot = new ChatBot(mode);
+
+let index = 0
+await chatbot.ask(prompt, (res) => {
+    process.stdout.write(res.substring(index)); // 异步返回的结果需要处理一下
+    index = res.length
+});
+index = 0
+process.stdout.write("\n");
 ```
 
 mode参数可选三种，对应了目前sydney的三种模式，默认是"h3precise"
@@ -32,3 +52,6 @@ mode参数可选三种，对应了目前sydney的三种模式，默认是"h3prec
 "h3precise" -- 准确模式
 "h3imaginative" -- 创造模式
 "harmonyv3" -- 均衡模式
+
+## 预览
+![预览](https://github.com/Kuaizr/js-edgegpt/blob/master/img/gif.gif?raw=true)
